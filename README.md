@@ -16,14 +16,14 @@ This is a sistem to get all of the football, professional and semiprofessional g
 - [Bootstrap] - To the css ui design
 
 
-# Instalación y Requerimientos
+# Installation and Requirements
 
-## _requerimientos_
+## _requirements_
 
 - php ^7.3|^8.0
 - composer ^2.2.4 
 
-## _instalación_
+## _installation_
 
 ```
 git clone repo_url
