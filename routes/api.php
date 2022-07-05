@@ -21,6 +21,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/matches/{date}', [ApiConnectionController::class, 'matchesByDate'])->name('matchesByDate');
+Route::get('/matches/{date}', [ApiConnectionController::class, 'matches_by_date'])->name('matches_by_date');
+Route::get('/countries', [ApiConnectionController::class, 'get_countries'])->name('get_countries');
 
 Route::post('/matches', [MatchController::class, 'store'])->name('matches.create');
