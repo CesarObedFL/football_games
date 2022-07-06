@@ -5332,6 +5332,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   created: function created() {//this.getMatches(this.formatDate(new Date(), 'yyyy-mm-dd'));
   },
@@ -5347,8 +5350,9 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
 
       var self = this;
-      axios.get('api/matches/' + self.date).then(function (response) {
+      axios.get("api/matches/".concat(self.date)).then(function (response) {
         self.matches_by_league_list = response.data.matches_by_league;
+        console.log(response.data);
       })["catch"](function (error) {
         console.error(error);
       })["finally"](function () {
@@ -28482,9 +28486,15 @@ var render = function () {
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-6" }, [
-                          _c("label", [_vm._v(_vm._s("Season: "))]),
-                          _vm._v(" "),
-                          _c("label", [_vm._v(_vm._s("Round:"))]),
+                          _c("label", [
+                            _vm._v("Season: " + _vm._s(league.season)),
+                          ]),
+                          _vm._v(
+                            "           \n                                        "
+                          ),
+                          _c("label", [
+                            _vm._v("Round:  " + _vm._s(league.round)),
+                          ]),
                         ]),
                         _vm._v(" "),
                         _c("div", { staticClass: "col-md-3" }, [
@@ -28550,16 +28560,7 @@ var render = function () {
                             ]),
                           ]),
                           _vm._v(" "),
-                          _c("div", { staticClass: "col-sm-2" }, [
-                            _c(
-                              "button",
-                              {
-                                staticClass: "btn btn-md btn-primary",
-                                on: { click: _vm.saveMatch },
-                              },
-                              [_vm._v("Guardar")]
-                            ),
-                          ]),
+                          _c("div", { staticClass: "col-sm-2" }),
                           _vm._v(" "),
                           _c("div", { staticClass: "col-sm-2" }, [
                             _c(
@@ -28589,6 +28590,10 @@ var render = function () {
           }),
           0
         ),
+        _vm._v(" "),
+        _c("br"),
+        _vm._v(" "),
+        _c("hr"),
       ]),
     ]),
   ])

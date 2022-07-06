@@ -15,13 +15,52 @@ class ApiConnectionController extends Controller
     protected static $TIMEOUT = 0;
 
     protected static $SAVED_TEAMS = array(
-        'Club Brugge KV', // Belgium
-        'Real Madrid', 'Sevilla' // Spain
+        /* Austria */ 'Red Bull Salzburg', 'Sturm Graz', 
+        /* Azerbaidjan */ 'Qarabag',
+        /* Belgium */ 'Club Brugge KV', 'Standard Liege', 'Anderlecht', 'Genk', 
+        /* Belarus */ 'Bate Borisov', 'Dinamo Brest', 'Shakhter Soligorsk', 
+        /* Bulgaria */ 'Ludogorets', 'Spartak Varna',
+        /* China */ '',
+        /* Croatia */ 'Dinamo Zagreb', 'NK Osijek', 'HNK Hajduk Split', 'HNK Rijeka',
+        /* Czech-Republic */ 'Sparta Praha', 'Plzen',
+        /* Denmark */ 'FC Copenhagen', 'FC Midtjylland',
+        /* England */ 'Manchester City', 'Liverpool', 'Tottenham', 'Arsenal', 'Chelsea',
+        /* Estonia */ 'Paide', 'Flora Tallinn', 'FC Levadia Tallinn', 
+        /* Finland */ 'HJK helsinki',
+        /* France */ 'Paris Saint Germain', 'Monaco', 'Lyon', 'Marseille', 'Lille',
+        /* Germany */ 'Bayern Munich', 'Borussia Dortmund', 'Bayer Leverkusen', 
+        /* Greece */ 'Panathinaikos', 'AEK Athens FC', 'PAOK', 'Olympiakos Piraeus',
+        /* Hungary */ 'Ferencvarosi TC',
+        /* Iceland */ 'Fram Reykjavik', 'Thor Akureyri', 'IR Reykjavik', 'KR Reykjavik', 'Breidablik', 
+        /* Ireland */ 'Bohemians',
+        /* Italy */ 'Juventus', 'AS Roma', 'Atalanta', 'Napoli', 'Inter', 'AC Milan',
+        /* Japan */ 'V-varen Nagasaki', 'Nagoya Grampus', 'Yokohama F. Marinos', 'FC Ryukyu', 'Kawasaki Frontale', 'Albirex Niigata', 
+        /* Kazakhstan */ 'FC Astana',
+        /* Lithuania */ 'Kauno Žalgiris', 'Suduva Marijampole',
+        /* Luxembourg */ 'Fola Esch',
+        /* Moldova */ 'Sheriff Tiraspol',
+        /* Netherlands */ 'Ajax', 'PSV Eindhoven', 'Feyenoord', 'AZ Alkmaar', 
+        /* Norway */ 'Molde', 'Bodo/Glimt', 'Rosenborg', 
+        /* Portugal */ 'Benfica', 'FC Porto', 'Sporting CP',
+        /* Romania */ 'FCSB', 'CFR 1907 Cluj', 'Rapid',
+        /* Russia */ 'CSKA Moscow', 'Dinamo Moscow', 'PFC Sochi', 'Spartak Moscow', 'Zenit Saint Petersburg', 
+        /* Scotland */ 'Rangers', 'Celtic', 'Hibernian', 
+        /* Serbia */ 'FK Crvena Zvezda', 'FK Partizan',
+        /* Singapore */ 'Albirex Niigata S',
+        /* Slovakia */ 'Spartak Trnava', 'Slovan Bratislava', 'Žilina',
+        /* Slovenia */ 'Maribor',
+        /* South-Korea */ 'Jeonbuk Motors', 'Ulsan Hyundai FC', 
+        /* Spain */ 'Real Madrid', 'Sevilla', 'Barcelona', 'Real Betis', 'Villarreal', 'Atletico Madrid',
+        /* Sweden */ 'Malmo FF', 
+        /* Switzerland */ 'FC Basel 1893', 'BSC Young Boys', 
+        /* Turkey */ 'Fenerbahce', 'Galatasaray',
+        /* Ukraine */ 'Dynamo Kyiv', 'Shakhtar Donetsk', 
+        /* Wales */ 'The New Saints',
+        /* */
     );
 
     public function matches_by_date($date)
     {
-        //$response = Http::withHeaders(self::$HEADERS)->get('https://v3.football.api-sports.io/fixtures?date='.$date.'&status=NS&timezone=America/Mexico_City');
         $response = Http::withHeaders(self::$HEADERS)->get('https://v3.football.api-sports.io/fixtures?date='.$date.'&timezone=America/Mexico_City');
         $data = json_decode($response);
 
@@ -59,6 +98,8 @@ class ApiConnectionController extends Controller
                                                 'country' => $match_one->league->country,
                                                 'country_flag' => $match_one->league->flag,
                                                 'total_matches' => count($matches),
+                                                'season' => $match_one->league->season,
+                                                'round' => $match_one->league->round,
                                                 'matches' => $matches
                                             ));
             $matches = array(); // reinitializing matches array...

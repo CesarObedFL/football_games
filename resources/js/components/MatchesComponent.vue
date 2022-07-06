@@ -34,8 +34,8 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
-                                            <label>{{ 'Season: ' }}</label>
-                                            <label>{{ 'Round:' }}</label>
+                                            <label>Season: {{ league.season }}</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                            <label>Round:  {{ league.round }}</label>
                                     </div>
                                     <div class="col-md-3">
                                         <div class="col text-center">
@@ -71,7 +71,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-2">
-                                            <button v-on:click="saveMatch" class="btn btn-md btn-primary">Guardar</button>
+                                            <!-- button v-on:click="saveMatch" class="btn btn-md btn-primary">Guardar</button> -->
                                         </div>
                                         <div class="col-sm-2">
                                             <span v-show="match.bet_oportunity" class="bg-success">oportunity</span>
@@ -81,7 +81,10 @@
                             </div> <!-- principal row /--> 
                         </li> <!-- end li /-->
                     </ul> <!-- end ul v-for(index) /-->
-                </div>
+                </div> <!-- <div :key="key"> -->
+                
+                <br>
+                <hr>
             </div>
         </div>
     </div>
@@ -105,8 +108,9 @@
         methods: {
             getMatches: function() {
                 let self = this;
-                axios.get('api/matches/'+self.date).then(function (response) {
-                    self.matches_by_league_list = response.data.matches_by_league
+                axios.get(`api/matches/${self.date}`).then(function (response) {
+                    self.matches_by_league_list = response.data.matches_by_league;
+                    console.log(response.data);
                 }).catch(function (error) {
                     console.error(error);
                 }).finally(() => this.refresh());
