@@ -74,7 +74,7 @@
                                             <!-- button v-on:click="saveMatch" class="btn btn-md btn-primary">Guardar</button> -->
                                         </div>
                                         <div class="col-sm-2">
-                                            <span v-show="match.bet_oportunity" class="bg-success">oportunity</span>
+                                            <span v-show="match.bet_oportunity" class="bg-success">+</span>
                                         </div>
                                     </div> <!-- secondary row /-->
                                 </div> <!-- end v-for(j) /-->
@@ -110,7 +110,7 @@
                 let self = this;
                 axios.get(`api/matches/${self.date}`).then(function (response) {
                     self.matches_by_league_list = response.data.matches_by_league;
-                    console.log(response.data);
+                    //console.log(response.data);
                 }).catch(function (error) {
                     console.error(error);
                 }).finally(() => this.refresh());

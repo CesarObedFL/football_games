@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 
-use App\Models\Match;
+use App\Models\MatchGame;
 
 class MatchController extends Controller
 {
@@ -17,7 +17,7 @@ class MatchController extends Controller
      */
     public function index()
     {
-        return view('matches.bets', [ 'matches' => Match::all() ]);
+        return view('matches.bets', [ 'matches' => MatchGame::all() ]);
     }
 
     /**
@@ -38,7 +38,7 @@ class MatchController extends Controller
      */
     public function store(Request $request)
     {
-        Match::create([
+        MatchGame::create([
             'localTeam' => $request->input('local_team'),
             'awayTeam' => $request->input('away_team'),
             'selectedTeam' => $request->input('selected_team'), //['local', 'visit']
@@ -59,7 +59,7 @@ class MatchController extends Controller
      * @param  \App\Models\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function show(Match $match)
+    public function show(MatchGame $match)
     {
         //
     }
@@ -70,7 +70,7 @@ class MatchController extends Controller
      * @param  \App\Models\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function edit(Match $match)
+    public function edit(MatchGame $match)
     {
         //
     }
@@ -82,7 +82,7 @@ class MatchController extends Controller
      * @param  \App\Models\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Match $match)
+    public function update(Request $request, MatchGame $match)
     {
         //
     }
@@ -93,7 +93,7 @@ class MatchController extends Controller
      * @param  \App\Models\Match  $match
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Match $match)
+    public function destroy(MatchGame $match)
     {
         //
     }
