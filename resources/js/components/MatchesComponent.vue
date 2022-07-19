@@ -1,91 +1,85 @@
 <template>
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-md-8">
-                <div class="row">
-                    <div class="col-md-9">
-                        <h2>Lista de Partidos</h2>
-                    </div>
-                    <div class="col-md-3">
-                    </div>
-                </div>
+    <div>
+        <div class="container mx-auto">
+            <div class="flex justify-center">
+                <h2 class="font-bold text-gray-700">Lista de Partidos</h2>
+            </div>
 
-                <br>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label for="date">Fecha: </label>
-                        <input v-model="date" type="text" placeholder="YYYY-MM-DD">
-                        <button v-on:click="getMatches" class="btn btn-md btn-success">Buscar</button>
-                    </div>
-                </div>
+            <br>
+            <div>
+                <label for="date" class="inline-block w-20 mr-6 text-right font-bold text-gray-600">Fecha: </label>
+                <input v-model="date" type="text" placeholder="YYYY-MM-DD" class="flex-1 appearance-none text-gray-600 placeholder-gray-400 shadow focus:outline-none focus:ring focus:ring-green-300 px-8 py-1 border-gray-300 rounded-lg">
+                <button v-on:click="getMatches" class="hover:text-green-600 border border-green-800 hover:border-green-600 rounded py-1 px-8 transition duration-500 font-bold">Buscar</button>
+            </div>
 
-                <br>
-                <div :key="key">
-                    <ul v-for="(league, index) in matches_by_league_list" :key="index">
-                        <li>
-                            <div class="row jumbotron jumbotron-fluid">
-                                
-                                <!-- league section -->
-                                <div class="row col-sm-12 container bg-secondary">
-                                    <div class="col-md-3">
-                                        <div class="col text-center">
-                                            <img v-bind:src="league.country_flag" alt="country" class="rounded-circle img-country-flag img-thumbnail">
-                                            <p class="text-justify">{{ league.country }}</p>
-                                        </div>
-                                    </div>
-                                    <div class="col-md-6">
-                                            <label>Season: {{ league.season }}</label> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                            <label>Round:  {{ league.round }}</label>
-                                    </div>
-                                    <div class="col-md-3">
-                                        <div class="col text-center">
-                                            <img v-bind:src="league.league_logo" alt="league" class="rounded-circle img-league-flag img-thumbnail">
-                                            <p class="text-justify">{{ league.league }}</p>
-                                        </div>
+            <br>
+            <div :key="key">
+                <ul v-for="(league, index) in matches_by_league_list" :key="index">
+                    <li>
+                        <div>
+                            
+                            <!-- league section -- >
+                            <div>
+                                <div>
+                                    <div>
+                                        <img v-bind:src="league.country_flag" alt="country" class="rounded-circle img-country-flag img-thumbnail">
+                                        <p>{{ league.country }}</p>
                                     </div>
                                 </div>
-                                <!-- league section /-->
+                                <div>
+                                        <label>Season: {{ league.season }}</label>
+                                        <label>Round:  {{ league.round }}</label>
+                                </div>
+                                <div>
+                                    <div>
+                                        <img v-bind:src="league.league_logo" alt="league" class="rounded-circle img-league-flag img-thumbnail">
+                                        <p>{{ league.league }}</p>
+                                    </div>
+                                </div>
+                            </div>
+                            < !-- league section /-->
 
-                                <div class="col-md-12" v-for="(match, j) in league.matches" :key="j">
-                                    <div class="row"> <!-- secondary row -->
-                                        <div class="col-sm-4">
-                                            <div class="container">
-                                                <div class="col text-center">
-                                                    <img class="rounded img-team-flag" alt="team-flag" v-bind:src="match.teams.home.logo">
-                                                </div>
-                                                <div>
-                                                    <label> {{ match.teams.home.name }}</label>
-                                                    <p></p>
-                                                </div>
+                            <div class="list-inside">
+                            <div v-for="(match, j) in league.matches" :key="j">
+                                <li> <!-- secondary row -->
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <img class="rounded img-team-flag" alt="team-flag" v-bind:src="match.teams.home.logo">
+                                            </div>
+                                            <div>
+                                                <label> {{ match.teams.home.name }}</label>
+                                                <p></p>
                                             </div>
                                         </div>
-                                        <div class="col-sm-4">
-                                            <div class="container">
-                                                <div class="text-center">
-                                                    <img class="rounded img-team-flag" alt="team-flag" v-bind:src="match.teams.away.logo">
-                                                </div>
-                                                <div>
-                                                    <label>{{ match.teams.away.name }}</label>
-                                                    <p></p>
-                                                </div>
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <div>
+                                                <img class="rounded img-team-flag" alt="team-flag" v-bind:src="match.teams.away.logo">
+                                            </div>
+                                            <div>
+                                                <label>{{ match.teams.away.name }}</label>
+                                                <p></p>
                                             </div>
                                         </div>
-                                        <div class="col-sm-2">
-                                            <!-- button v-on:click="saveMatch" class="btn btn-md btn-primary">Guardar</button> -->
-                                        </div>
-                                        <div class="col-sm-2">
-                                            <span v-show="match.bet_oportunity" class="bg-success">+</span>
-                                        </div>
-                                    </div> <!-- secondary row /-->
-                                </div> <!-- end v-for(j) /-->
-                            </div> <!-- principal row /--> 
-                        </li> <!-- end li /-->
-                    </ul> <!-- end ul v-for(index) /-->
-                </div> <!-- <div :key="key"> -->
-                
-                <br>
-                <hr>
-            </div>
+                                    </div>
+                                    <div>
+                                        <!-- button v-on:click="saveMatch" class="btn btn-md btn-primary">Guardar</button> -->
+                                    </div>
+                                    <div>
+                                        <span v-show="match.bet_oportunity">+</span>
+                                    </div>
+                                </li> <!-- secondary row /-->
+                            </div> <!-- end v-for(j) /-->
+                            </div>
+                        </div> <!-- principal row /--> 
+                    </li> <!-- end li /-->
+                </ul> <!-- end ul v-for(index) /-->
+            </div> <!-- <div :key="key"> -->
+            
+            <br>
+            <hr>
         </div>
     </div>
 </template>
