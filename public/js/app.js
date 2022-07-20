@@ -2151,14 +2151,40 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  created: function created() {//this.getMatches(this.formatDate(new Date(), 'yyyy-mm-dd'));
-  },
+  created: function created() {},
   data: function data() {
     return {
       matches_by_league_list: [],
       date: '',
-      key: 1
+      key: 1 // key variable to refresh to component
+
     };
   },
   methods: {
@@ -2167,7 +2193,7 @@ __webpack_require__.r(__webpack_exports__);
 
       var self = this;
       axios.get("api/matches/".concat(self.date)).then(function (response) {
-        self.matches_by_league_list = response.data.matches_by_league; //console.log(response.data);
+        self.matches_by_league_list = response.data.matches_by_league;
       })["catch"](function (error) {
         console.error(error);
       })["finally"](function () {
@@ -2949,7 +2975,7 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "container mx-auto" }, [
+    _c("div", { staticClass: "md:container md:mx-auto" }, [
       _vm._m(0),
       _vm._v(" "),
       _c("br"),
@@ -3003,89 +3029,179 @@ var render = function () {
       _vm._v(" "),
       _c(
         "div",
-        { key: _vm.key },
-        _vm._l(_vm.matches_by_league_list, function (league, index) {
-          return _c("ul", { key: index }, [
-            _c("li", [
-              _c("div", [
-                _c(
-                  "div",
-                  { staticClass: "list-inside" },
+        {
+          key: _vm.key,
+          staticClass: "overflow-x-auto relative shadow-md sm:rounded-lg",
+        },
+        [
+          _c(
+            "table",
+            {
+              staticClass:
+                "w-full text-sm text-left text-gray-500 dark:text-gray-400",
+            },
+            [
+              _vm._m(1),
+              _vm._v(" "),
+              _vm._l(_vm.matches_by_league_list, function (league, index) {
+                return _c(
+                  "tbody",
+                  { key: index },
                   _vm._l(league.matches, function (match, j) {
-                    return _c("div", { key: j }, [
-                      _c("li", [
-                        _c("div", [
-                          _c("div", [
-                            _c("div", [
-                              _c("img", {
-                                staticClass: "rounded img-team-flag",
-                                attrs: {
-                                  alt: "team-flag",
-                                  src: match.teams.home.logo,
-                                },
-                              }),
-                            ]),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c("label", [
-                                _vm._v(" " + _vm._s(match.teams.home.name)),
-                              ]),
-                              _vm._v(" "),
-                              _c("p"),
-                            ]),
-                          ]),
-                        ]),
+                    return _c(
+                      "tr",
+                      {
+                        key: j,
+                        staticClass:
+                          "bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600",
+                      },
+                      [
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s(league.country))]
+                        ),
                         _vm._v(" "),
-                        _c("div", [
-                          _c("div", [
-                            _c("div", [
-                              _c("img", {
-                                staticClass: "rounded img-team-flag",
-                                attrs: {
-                                  alt: "team-flag",
-                                  src: match.teams.away.logo,
-                                },
-                              }),
-                            ]),
-                            _vm._v(" "),
-                            _c("div", [
-                              _c("label", [
-                                _vm._v(_vm._s(match.teams.away.name)),
-                              ]),
-                              _vm._v(" "),
-                              _c("p"),
-                            ]),
-                          ]),
-                        ]),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s(league.league))]
+                        ),
                         _vm._v(" "),
-                        _c("div"),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s(match.teams.home.name))]
+                        ),
                         _vm._v(" "),
-                        _c("div", [
-                          _c(
-                            "span",
-                            {
-                              directives: [
-                                {
-                                  name: "show",
-                                  rawName: "v-show",
-                                  value: match.bet_oportunity,
-                                  expression: "match.bet_oportunity",
-                                },
-                              ],
-                            },
-                            [_vm._v("+")]
-                          ),
-                        ]),
-                      ]),
-                    ])
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-bold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v("vs")]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s(match.teams.away.name))]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [
+                            _c(
+                              "span",
+                              {
+                                directives: [
+                                  {
+                                    name: "show",
+                                    rawName: "v-show",
+                                    value: match.bet_oportunity,
+                                    expression: "match.bet_oportunity",
+                                  },
+                                ],
+                                staticClass:
+                                  "bg-green-100 text-blue-800 text-sm font-semibold inline-flex items-center p-1.5 rounded-full dark:bg-blue-200 dark:text-blue-800",
+                              },
+                              [
+                                _c(
+                                  "svg",
+                                  {
+                                    staticClass: "w-3.5 h-3.5",
+                                    attrs: {
+                                      fill: "currentColor",
+                                      viewBox: "0 0 20 20",
+                                      xmlns: "http://www.w3.org/2000/svg",
+                                    },
+                                  },
+                                  [
+                                    _c("path", {
+                                      attrs: {
+                                        "fill-rule": "evenodd",
+                                        d: "M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z",
+                                        "clip-rule": "evenodd",
+                                      },
+                                    }),
+                                  ]
+                                ),
+                              ]
+                            ),
+                          ]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s())]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s())]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s())]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s())]
+                        ),
+                        _vm._v(" "),
+                        _c(
+                          "td",
+                          {
+                            staticClass:
+                              "py-4 px-6 font-semibold text-gray-900 dark:text-white",
+                          },
+                          [_vm._v(_vm._s())]
+                        ),
+                      ]
+                    )
                   }),
                   0
-                ),
-              ]),
-            ]),
-          ])
-        }),
-        0
+                )
+              }),
+            ],
+            2
+          ),
+        ]
       ),
       _vm._v(" "),
       _c("br"),
@@ -3104,6 +3220,72 @@ var staticRenderFns = [
         _vm._v("Lista de Partidos"),
       ]),
     ])
+  },
+  function () {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c(
+      "thead",
+      {
+        staticClass:
+          "text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400",
+      },
+      [
+        _c("tr", [
+          _c("th", {
+            staticClass: "py-3 px-6",
+            attrs: { scope: "col", colspan: "2" },
+          }),
+          _vm._v(" "),
+          _c(
+            "th",
+            { staticClass: "py-3 px-6", attrs: { scope: "col", colspan: "4" } },
+            [_vm._v(" Match ")]
+          ),
+          _vm._v(" "),
+          _c(
+            "th",
+            { staticClass: "py-3 px-6", attrs: { scope: "col", colspan: "5" } },
+            [_vm._v(" BetHouses")]
+          ),
+        ]),
+        _vm._v(" "),
+        _c("tr", [
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }, [
+            _vm._v(" Country "),
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }, [
+            _vm._v(" League "),
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }, [
+            _vm._v(" Home"),
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }, [
+            _vm._v(" Away"),
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }, [
+            _vm._v(" Op "),
+          ]),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }),
+          _vm._v(" "),
+          _c("th", { staticClass: "py-3 px-6", attrs: { scope: "col" } }),
+        ]),
+      ]
+    )
   },
 ]
 render._withStripped = true
