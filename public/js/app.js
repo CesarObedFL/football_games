@@ -3115,8 +3115,8 @@ var render = function () {
                                   {
                                     name: "show",
                                     rawName: "v-show",
-                                    value: match.bet_oportunity,
-                                    expression: "match.bet_oportunity",
+                                    value: match.is_bet_oportunity,
+                                    expression: "match.is_bet_oportunity",
                                   },
                                 ],
                                 staticClass:

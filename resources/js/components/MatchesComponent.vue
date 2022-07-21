@@ -45,7 +45,7 @@
                             <td class="py-4 px-6 font-bold text-gray-900 dark:text-white">vs</td>
                             <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">{{ match.teams.away.name }}</td>
                             <td class="py-4 px-6 font-semibold text-gray-900 dark:text-white">
-                                <span v-show="match.bet_oportunity" class="bg-green-100 text-blue-800 text-sm font-semibold inline-flex items-center p-1.5 rounded-full dark:bg-blue-200 dark:text-blue-800">
+                                <span v-show="match.is_bet_oportunity" class="bg-green-100 text-blue-800 text-sm font-semibold inline-flex items-center p-1.5 rounded-full dark:bg-blue-200 dark:text-blue-800">
                                     <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"></path></svg>
                                 </span>
                             </td>

@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 
+use Goutte\Client;
+use Symfony\Component\HttpClient\HttpClient;
+
 class ApiConnectionController extends Controller
 {
     protected static $HEADERS = array(
@@ -59,6 +62,11 @@ class ApiConnectionController extends Controller
         /* */
     );
 
+    /**
+     * get the matches from APIs by date
+     * 
+     * @param Date the matches date
+     */
     public function matches_by_date($date)
     {
         $response = Http::withHeaders(self::$HEADERS)->get('https://v3.football.api-sports.io/fixtures?date='.$date.'&timezone=America/Mexico_City');
@@ -66,7 +74,8 @@ class ApiConnectionController extends Controller
 
         $matches_by_league = array();
         $matches = array();
-        $bet_oportunity = false; // if a saved team is home it's == true
+        $is_bet_oportunity = false; // if a saved team is home it's == true
+        $is_team_saved = false;  // if one of the match team  is in the saved teams array it´s == true
 
         // stored in the array the matches by league and country
         foreach($data->response as $match_one) {
@@ -74,7 +83,11 @@ class ApiConnectionController extends Controller
                 if ($match_one->league->name === $match_two->league->name) {
                     if ($match_one->league->country === $match_two->league->country) {
                         if( in_array( $match_two->teams->home->name, self::$SAVED_TEAMS ) ) {
-                            $bet_oportunity = true;
+                            $is_bet_oportunity = true;
+                        }
+
+                        if( in_array( $match_two->teams->home->name, self::$SAVED_TEAMS ) || in_array( $match_two->teams->home->name, self::$SAVED_TEAMS )) {
+                            $is_team_saved = true;
                         }
 
                         array_push($matches, array(
@@ -82,11 +95,13 @@ class ApiConnectionController extends Controller
                                 'status' => $match_two->fixture->status,
                                 'teams'=> $match_two->teams,
                                 'score' => $match_two->score,
-                                'bet_oportunity' => $bet_oportunity
+                                'is_bet_oportunity' => $is_bet_oportunity,
+                                'is_team_saved' => $is_team_saved
                             )
                         );
                     } // endif ($match_one->league->country === $match_two->league->country)
-                    $bet_oportunity = false;
+                    $is_bet_oportunity = false;
+                    $is_team_saved = false;
                 } // endif ($match_one->league->name === $match_two->league->name)
 
             } // endforeach($data->response as $match_two)
@@ -128,6 +143,70 @@ class ApiConnectionController extends Controller
         $response = Http::withHeaders(self::$_HEADERS)->get('https://v3.football.api-sports.io/countries');
         $data = json_decode($response);
         dd($data);
+    }
+
+    /**
+     * web scraping from bettingclosed.com scores by date
+     */
+    public function bt_scraping() 
+    {
+        $client = new Client(HttpClient::create(['timeout' => 60])); // create the scraping request
+
+        $predictions = array();
+
+        $crawler = $client->request('GET', 'https://www.bettingclosed.com/predictions/date-matches/2022-07-22/bet-type/correct-scores');
+
+        // extracting the matches table
+        $matches_table = $crawler->filter('[class="tbmatches table"]')->filter('tr')->each(function($tr, $i) use (&$predictions) {
+            $match_td = $tr->filter('td')->each(function($td, $i) {
+
+                $match_date = $td->filter('[class="dataMt"]')->each(function($class, $i) {
+                    return $class->text();
+                });
+                $team_home = $td->filter('[class="teamAmatch hidden-phone hidden-tablet"]')->each(function($class, $i) {
+                    return $class->text();
+                });
+                $team_away = $td->filter('[class="teamBmatch hidden-phone hidden-tablet"]')->each(function($class, $i) {
+                    return $class->text();
+                });
+                $score_prediction = $td->filter('[class="predMt"]')->each(function($class, $i) {
+                    return $class->text();
+                });
+
+                // return table data founded
+                return [ 'home' => $team_home, 'score_prediction' => $score_prediction, 'away' => $team_away, 'match_date' => $match_date ];
+            });
+            
+            // extracting the empty data and pushing to the predictions array only the got data
+            if(count($match_td) > 0) { 
+                $team_home = ''; $team_away = ''; $score_prediction = ''; $match_date = '';
+                foreach( $match_td as $key => $_match ) {
+                    if (count($_match['match_date']) > 0) {
+                        $match_date = $_match['match_date'][0] ?? '-';
+                    }
+                    if (count($_match['home']) > 0) {
+                        $team_home = $_match['home'][0] ?? '-';
+                    }
+                    if (count($_match['score_prediction']) > 0) {
+                        $score_prediction = $_match['score_prediction'][0] ?? '-';
+                    }
+                    if (count($_match['away']) > 0) {
+                        $team_away = $_match['away'][0] ?? '-';
+                    }
+                }
+
+                if ( !empty($team_home) && !empty($score_prediction) && !empty($team_away) ) {
+                    array_push($predictions, [ 'home' => $team_home, 'score_prediction' => $score_prediction, 'away' => $team_away, 'date' => $match_date ]); 
+                }
+            }
+
+            return $match_td;
+
+        });
+
+
+        dd($predictions);
+
     }
     
 }

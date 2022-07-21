@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Web\MatchController;
 
+use App\Http\Controllers\ApiConnectionController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,9 +21,9 @@ Route::get('/', function () {
     return view('home');
 });
 
-Route::get('/matches', function() {
-    return view('matches.matches');
-})->name('matches');
+Route::get('/matches', function() { return view('matches.matches'); })->name('matches');
+
+Route::get('/scraping', [ApiConnectionController::class, 'bt_scraping'])->name('scraping');
 
 Route::get('/bets', [MatchController::class, 'index'])->name('bets');
 
